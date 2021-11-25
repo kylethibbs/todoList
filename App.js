@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Alert, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View, DialogInput} from 'react-native';
 import Task from './components/Task'; 
 
 export default function App() {
@@ -7,22 +7,25 @@ export default function App() {
   // Set state variables that are used in the program
   const [task, setTask] = useState(); 
   const [taskItems, setTaskItems] = useState([]);
+  const [timeItems, setTimeItems] = useState([]);
 
   // handles adding of a task to the task Items array and clears the input bar
   const handleAddTask = () => {
     Keyboard.dismiss();
     setTaskItems([...taskItems, task]);
+    setTimeItems([...timeItems, '']);
     setTask(null);
   } 
 
   // handles when the user clicks on a task
   const onTaskPress = (index) => {
     Alert.alert(
-      'Delete item',
-      'Do you want to delete this item?',
+      'Options',
+      'Please select an option',
       [
-        {text: 'Yes', onPress: () => deleteItem(index)},
-        {text: 'No', onPress: () => console.log('User Canceled'), style: 'cancel'}
+        {text: 'Delete', onPress: () => deleteItem(index)},
+        {text: 'Cancel', onPress: () => console.log('User Canceled'), style: 'cancel'}
+
       ]
     )
   }
@@ -30,8 +33,11 @@ export default function App() {
   // Deletes the item from the array of tasks
   const deleteItem = (index) =>{
     let itemsCopy = [...taskItems];
+    let timeCopy = [...timeItems];
     itemsCopy.splice(index,1);
+    timeCopy.splice(index,1);
     setTaskItems(itemsCopy);
+    setTimeItems(timeCopy)
   }
 
   return (
@@ -46,9 +52,10 @@ export default function App() {
           {/* This is where the tasks will go */}
           {
             taskItems.map((item, index) => {
+              
               return (
                 <TouchableOpacity key={index} onPress ={() => onTaskPress(index)}>
-                  <Task text={item} />
+                  <Task text={item} time = {timeItems[index]}/>
                 </TouchableOpacity>
               )
             })
@@ -125,4 +132,8 @@ const styles = StyleSheet.create({
   },
 
   addText: {},
+
+  dateTime: {
+    backgroundColor: '#F0F'
+  }
 });

@@ -3,17 +3,21 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 const Task = (props) => {
 
+    let timeString = 'Time: ' + props.time;
+
     return (
         <View style={styles.item}> 
             <View style={styles.itemLeft}>
                 <View style={styles.square}></View>
-                <Text style={styles.itemText}>{props.text}</Text>
+                <View style={styles.itemText}>
+                    <Text>{props.text}</Text>
+                </View>
                 
             </View>
-            <View style={styles.itemsRight}>
-                <Text style={styles.timeComponent}>Time: </Text>
-            </View>
             
+            <View style={styles.timeRight}>
+                <Text style={styles.timeComponent}>{timeString}</Text>
+            </View>
             <View style={styles.circular}></View>
         </View>
     )
@@ -35,12 +39,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         flexWrap: 'wrap',
+        maxWidth: '75%',
     },
 
-    itemsRight: {
-        flexDirection:'row',
-        alignItems: 'flex-end',
-        flexWrap: 'wrap',
+    timeRight: {
+        position: 'absolute',
+        flexDirection: 'row',
+        marginLeft: '70%',
     },
 
     timeComponent: {
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
     }, 
 
     itemText: {
-        maxWidth: '80%',
+        maxWidth: '70%',
     },
 
     circular: {
