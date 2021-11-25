@@ -4,17 +4,19 @@ import Task from './components/Task';
 
 export default function App() {
 
+  // Set state variables that are used in the program
   const [task, setTask] = useState(); 
   const [taskItems, setTaskItems] = useState([]);
 
+  // handles adding of a task to the task Items array and clears the input bar
   const handleAddTask = () => {
     Keyboard.dismiss();
     setTaskItems([...taskItems, task]);
     setTask(null);
   } 
 
-  const completeTask = (index) => {
-
+  // handles when the user clicks on a task
+  const onTaskPress = (index) => {
     Alert.alert(
       'Delete item',
       'Do you want to delete this item?',
@@ -25,6 +27,7 @@ export default function App() {
     )
   }
 
+  // Deletes the item from the array of tasks
   const deleteItem = (index) =>{
     let itemsCopy = [...taskItems];
     itemsCopy.splice(index,1);
@@ -44,7 +47,7 @@ export default function App() {
           {
             taskItems.map((item, index) => {
               return (
-                <TouchableOpacity key={index} onPress ={() => completeTask(index)}>
+                <TouchableOpacity key={index} onPress ={() => onTaskPress(index)}>
                   <Task text={item} />
                 </TouchableOpacity>
               )

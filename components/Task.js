@@ -8,7 +8,12 @@ const Task = (props) => {
             <View style={styles.itemLeft}>
                 <View style={styles.square}></View>
                 <Text style={styles.itemText}>{props.text}</Text>
+                
             </View>
+            <View style={styles.itemsRight}>
+                <Text style={styles.timeComponent}>Time: </Text>
+            </View>
+            
             <View style={styles.circular}></View>
         </View>
     )
@@ -30,6 +35,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         flexWrap: 'wrap',
+    },
+
+    itemsRight: {
+        flexDirection:'row',
+        alignItems: 'flex-end',
+        flexWrap: 'wrap',
+    },
+
+    timeComponent: {
+        fontWeight: 'bold', 
     },
 
     square: {
